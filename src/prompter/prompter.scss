@@ -1,0 +1,12 @@
+.prompt{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    &.isShown{
+        display: block;
+        z-index: 1;
+        background-color: white;
+        padding: 0 5px;
+    }
+}

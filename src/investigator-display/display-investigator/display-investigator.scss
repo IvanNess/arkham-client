@@ -1,0 +1,41 @@
+$imageWidth: 1000px;
+$imageHeight: 480px;
+$px-width: 48px;
+$px-height: 48px;
+
+@mixin imageMixin($className, $color, $left, $top, $scale){
+
+    $scaled-left: -$imageWidth*(1-$scale)/2 - ( $left*$scale - $px-width/2 );
+    $scaled-top: -$imageHeight*(1-$scale)/2 - ( $top*$scale - $px-height/2 );
+
+    .display-image-wrapper{
+        width: 3em;
+        height: 3em;
+        overflow: hidden;
+        border-radius: 5px; 
+        .image.display{
+            position: relative;   
+            &.#{$className}{
+                left: $scaled-left;
+                top: $scaled-top;
+                transform: scale($scale);
+            }   
+        }
+    }
+}
+
+.display-investigator{
+    padding: 0.3em;
+
+    @include imageMixin(roland, rgb(6, 1, 68), 100px, 80px, 0.5);
+    @include imageMixin(daisy, rgb(6, 1, 68), 300px, 80px, 0.5);
+    @include imageMixin(skids, rgb(6, 1, 68), 500px, 80px, 0.6); 
+    @include imageMixin(agnes, rgb(6, 1, 68), 700px, 80px, 0.6); 
+    @include imageMixin(wendy, rgb(6, 1, 68), 890px, 70px, 0.6); 
+
+    @include imageMixin(zoey, rgb(6, 1, 68), 100px, 300px, 0.6);
+    @include imageMixin(rex, rgb(6, 1, 68), 280px, 300px, 0.6);
+    @include imageMixin(jenny, rgb(6, 1, 68), 500px, 300px, 0.6); 
+    @include imageMixin(jim, rgb(6, 1, 68), 680px, 300px, 0.6); 
+    @include imageMixin(ashcan, rgb(6, 1, 68), 850px, 300px, 0.8); 
+}

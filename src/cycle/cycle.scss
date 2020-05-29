@@ -1,0 +1,121 @@
+$imageWidth: 1180px;
+$imageHeight: 1050px;
+$px-width: 160;
+$px-height: 80px;
+
+@mixin imageMixin($className, $color, $left, $top, $scale, $left-end, $top-end, $scale-end){
+
+    $scaled-left: -$imageWidth*(1-$scale)/2 - ( $left*$scale - $px-width/2 );
+    $scaled-top: -$imageHeight*(1-$scale)/2 - ( $top*$scale - $px-height/2 );
+
+    $scaled-left-end: -$imageWidth*(1-$scale-end)/2 - ($left-end*$scale-end - $px-width/2) ;
+    $scaled-top-end: -$imageHeight*(1-$scale-end)/2 - ($top-end*$scale-end - $px-height/2);
+
+    .image-wrapper{
+        width: 10em;
+        height: 5em;
+        overflow: hidden;
+        border-radius: 5px; 
+        .image{
+            position: relative;   
+            &.#{$className}{
+                left: $scaled-left;
+                top: $scaled-top;
+                transform: scale($scale);
+            }   
+            &.#{$className}.scale-up {
+                cursor: pointer;
+                @include scale-up-cycles($className, $scaled-left, $scaled-top, $scale, $scaled-left-end, $scaled-top-end, $scale-end)
+            }
+            &.#{$className}.scale-down{
+                @include scale-down-cycles($className, $scaled-left, $scaled-top, $scale, $scaled-left-end, $scaled-top-end, $scale-end)
+            }
+        }
+        &.selected{
+            box-shadow: 0 0 30px $color;
+        }
+    }
+}
+
+@mixin scale-up-cycles($className, $left, $top, $scale, $left-end, $top-end, $scale-end) {
+    -webkit-animation: scale-up-#{$className} 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: scale-up-#{$className} 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+
+
+    @-webkit-keyframes scale-up-#{$className} {
+        0% {
+                -webkit-transform: scale($scale);
+                transform: scale($scale);
+                top: $top;
+                left: $left;
+        }
+        100% {
+                -webkit-transform: scale($scale-end);
+                transform: scale($scale-end);
+                top: $top-end;
+                left: $left-end;
+        }
+    } 
+
+    @keyframes scale-up-#{$className} {
+        0% {
+                -webkit-transform: scale($scale);
+                transform: scale($scale);
+                top: $top;
+                left: $left;
+        }
+        100% {
+                -webkit-transform: scale($scale-end);
+                transform: scale($scale-end);
+                top: $top-end;
+                left: $left-end;
+        }
+    } 
+}
+
+@mixin scale-down-cycles($className, $left, $top, $scale, $left-end, $top-end, $scale-end) {
+    -webkit-animation: scale-down-#{$className} 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: scale-down-#{$className} 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+
+    @-webkit-keyframes scale-down-#{$className} {
+        0% {
+                -webkit-transform: scale($scale-end);
+                transform: scale($scale-end);
+                top: $top-end;
+                left: $left-end;
+        }
+        100% {
+                -webkit-transform: scale($scale);
+                transform: scale($scale);
+                top: $top;
+                left: $left;
+        }
+    }
+
+    @keyframes scale-down-#{$className} {
+        0% {
+                -webkit-transform: scale($scale-end);
+                transform: scale($scale-end);
+                top: $top-end;
+                left: $left-end;
+        }
+        100% {
+                -webkit-transform: scale($scale);
+                transform: scale($scale);
+                top: $top;
+                left: $left;
+        }
+    }
+}
+
+.cycle{
+    padding: 0.5em;
+    @include imageMixin(core, rgb(6, 1, 68), 750px, 140px, 0.3, 750px, 90px, 0.45);
+    @include imageMixin(dunwich, rgb(6, 1, 68), 300px, 420px, 0.35, 300px, 420px, 0.6);
+    @include imageMixin(carcosa, rgb(6, 1, 68), 900px, 420px, 0.35, 900px, 390px, 0.5);
+    @include imageMixin(fage, rgb(6, 1, 68), 300px, 690px, 0.35, 300px, 660px, 0.6);
+    @include imageMixin(circle, rgb(6, 1, 68), 880px, 690px, 0.35, 920px, 660px, 0.5);
+    @include imageMixin(dreameaters, rgb(6, 1, 68), 300px, 915px, 0.35, 300px, 880px, 0.5);
+    @include imageMixin(innsmouth, rgb(6, 1, 68), 880px, 915px, 0.35, 940px, 940px, 0.5);
+}
+

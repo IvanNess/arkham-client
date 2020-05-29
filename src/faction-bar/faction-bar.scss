@@ -1,0 +1,40 @@
+
+
+.faction-bar{
+    .cutter{
+        overflow: hidden;
+        &.guardian{
+            // background-color: #82b3d6;
+            // background-image: linear-gradient(45deg, #82b3d6 6%, #8c9210 24%, #271285 73%);
+        }
+        &.seeker{
+            // background-color: #b6c4cf;
+            // background-image: linear-gradient(45deg, #b6c4cf 12%, #bda615 26%, #ffffff 98%);
+        }
+        &.rogue{
+            // background-color: #738b6e;
+            // background-image: linear-gradient(135deg, #738b6e 19%, #2e6f18 65%, #ae9d9d 99%);
+        }
+        &.mystic{
+            // background-color: #21D4FD;
+            // background-image: linear-gradient(19deg, #21D4FD 0%, #4d1866 27%, #ffffff 100%);
+        }
+        &.survivor{
+            // background-color: #8b0b1e;
+            // background-image: linear-gradient(225deg, #8b0b1e 0%, #FA709A 100%);
+
+        }
+        &.all{
+            // background-color: #8EC5FC;
+            // background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+
+        }
+    }
+    .faction-menu{
+        display: flex;
+        flex-direction: row;
+        border-radius: 5px;
+        background-color: rgba($color: #000000, $alpha: 0.4);
+        text-align: center;
+    }
+}

@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Provider } from 'react-redux'
 
-function App() {
+import store from './store'
+import FactionBar from './faction-bar'
+import MainWrapper from './main-wrapper'
+import CycleBar from './cycle-bar'
+import Comparators from './comparators'
+
+
+import './App.scss'
+import InvestigatorDisplay from './investigator-display'
+
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Provider store={store}>
+        <MainWrapper>
+          <div className='main-display'>
+            <div className='main-display-margin'>
+              <FactionBar />
+              <CycleBar />
+              <Comparators/>
+            </div>
+          </div>
+          <InvestigatorDisplay />
+        </MainWrapper>
+      </Provider>
     </div>
   );
 }
 
-export default App;
+export default App

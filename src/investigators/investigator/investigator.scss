@@ -1,0 +1,209 @@
+$imageWidth: 1000px;
+$imageHeight: 480px;
+$px-width: 80px;
+$px-height: 80px;
+
+@mixin imageMixin($className, $color, $left, $top, $scale, $left-end, $top-end, $scale-end){
+
+    $scaled-left: -$imageWidth*(1-$scale)/2 - ( $left*$scale - $px-width/2 );
+    $scaled-top: -$imageHeight*(1-$scale)/2 - ( $top*$scale - $px-height/2 );
+
+    $scaled-left-end: -$imageWidth*(1-$scale-end)/2 - ($left-end*$scale-end - $px-width/2) ;
+    $scaled-top-end: -$imageHeight*(1-$scale-end)/2 - ($top-end*$scale-end - $px-height/2);
+
+    .image-wrapper{
+        width: 5em;
+        height: 5em;
+        overflow: hidden;
+        border-radius: 5px; 
+        .image{
+            position: relative;   
+            &.#{$className}{
+                left: $scaled-left;
+                top: $scaled-top;
+                transform: scale($scale);
+            }   
+            &.#{$className}.scale-up {
+                cursor: pointer;
+                @include scale-up-investigators($className, $scaled-left, $scaled-top, $scale, $scaled-left-end, $scaled-top-end, $scale-end)
+            }
+            &.#{$className}.scale-down{
+                @include scale-down-investigators($className, $scaled-left, $scaled-top, $scale, $scaled-left-end, $scaled-top-end, $scale-end)
+            }
+        }
+        &.all{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 2.5em;
+        }
+        &.shake-vertical{
+            @include shake-vertical-investigators()
+        }
+        &.selected{
+            box-shadow: 0 0 30px $color;
+        }
+        .all{
+            font-family: 'arkham-icons', Arial, "Helvetica Neue", Helvetica, sans-serif;
+            font-size: 2.5em;
+            vertical-align: -1em;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@mixin scale-up-investigators($className, $left, $top, $scale, $left-end, $top-end, $scale-end) {
+    -webkit-animation: scale-up-#{$className} 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: scale-up-#{$className} 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+
+
+    @-webkit-keyframes scale-up-#{$className} {
+        0% {
+                -webkit-transform: scale($scale);
+                transform: scale($scale);
+                top: $top;
+                left: $left;
+        }
+        100% {
+                -webkit-transform: scale($scale-end);
+                transform: scale($scale-end);
+                top: $top-end;
+                left: $left-end;
+        }
+    } 
+
+    @keyframes scale-up-#{$className} {
+        0% {
+                -webkit-transform: scale($scale);
+                transform: scale($scale);
+                top: $top;
+                left: $left;
+        }
+        100% {
+                -webkit-transform: scale($scale-end);
+                transform: scale($scale-end);
+                top: $top-end;
+                left: $left-end;
+        }
+    } 
+}
+
+@mixin scale-down-investigators($className, $left, $top, $scale, $left-end, $top-end, $scale-end) {
+    -webkit-animation: scale-down-#{$className} 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: scale-down-#{$className} 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+
+    @-webkit-keyframes scale-down-#{$className} {
+        0% {
+                -webkit-transform: scale($scale-end);
+                transform: scale($scale-end);
+                top: $top-end;
+                left: $left-end;
+        }
+        100% {
+                -webkit-transform: scale($scale);
+                transform: scale($scale);
+                top: $top;
+                left: $left;
+        }
+    }
+
+    @keyframes scale-down-#{$className} {
+        0% {
+                -webkit-transform: scale($scale-end);
+                transform: scale($scale-end);
+                top: $top-end;
+                left: $left-end;
+        }
+        100% {
+                -webkit-transform: scale($scale);
+                transform: scale($scale);
+                top: $top;
+                left: $left;
+        }
+    }
+}
+
+@mixin shake-vertical-investigators{
+    -webkit-animation: shake-vertical 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+            animation: shake-vertical 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+
+    @-webkit-keyframes shake-vertical {
+        0%,
+        100% {
+            -webkit-transform: translateY(0);
+                    transform: translateY(0);
+        }
+        10%,
+        30%,
+        50%,
+        70% {
+            -webkit-transform: translateY(-8px);
+                    transform: translateY(-8px);
+        }
+        20%,
+        40%,
+        60% {
+            -webkit-transform: translateY(8px);
+                    transform: translateY(8px);
+        }
+        80% {
+            -webkit-transform: translateY(6.4px);
+                    transform: translateY(6.4px);
+        }
+        90% {
+            -webkit-transform: translateY(-6.4px);
+                    transform: translateY(-6.4px);
+        }
+    }
+
+    @keyframes shake-vertical {
+        0%,
+        100% {
+            -webkit-transform: translateY(0);
+                    transform: translateY(0);
+        }
+        10%,
+        30%,
+        50%,
+        70% {
+            -webkit-transform: translateY(-8px);
+                    transform: translateY(-8px);
+        }
+        20%,
+        40%,
+        60% {
+            -webkit-transform: translateY(8px);
+                    transform: translateY(8px);
+        }
+        80% {
+            -webkit-transform: translateY(6.4px);
+                    transform: translateY(6.4px);
+        }
+        90% {
+            -webkit-transform: translateY(-6.4px);
+                    transform: translateY(-6.4px);
+        }
+    }
+}
+
+.investigator{
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    @include imageMixin(roland, rgb(6, 1, 68), 100px, 80px, 0.5, 100px, 80px, 0.9);
+    @include imageMixin(daisy, rgb(6, 1, 68), 300px, 80px, 0.5, 280px, 70px, 0.8);
+    @include imageMixin(skids, rgb(6, 1, 68), 500px, 80px, 0.6, 490px, 80px, 0.8); 
+    @include imageMixin(agnes, rgb(6, 1, 68), 700px, 80px, 0.6, 710px, 80px, 0.8); 
+    @include imageMixin(wendy, rgb(6, 1, 68), 900px, 80px, 0.6, 900px, 60px, 0.8); 
+
+    @include imageMixin(zoey, rgb(6, 1, 68), 100px, 320px, 0.6, 100px, 300px, 0.9);
+    @include imageMixin(rex, rgb(6, 1, 68), 300px, 320px, 0.6, 280px, 300px, 0.9);
+    @include imageMixin(jenny, rgb(6, 1, 68), 500px, 320px, 0.6, 500px, 300px, 1.0); 
+    @include imageMixin(jim, rgb(6, 1, 68), 700px, 320px, 0.6, 680px, 300px, 1.0); 
+    @include imageMixin(ashcan, rgb(6, 1, 68), 900px, 320px, 0.6, 850px, 300px, 1.0); 
+}
